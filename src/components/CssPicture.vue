@@ -1,16 +1,31 @@
 <template>
-  <div class="code">
-    <pre class="write" ref="write"></pre>
+  <div class="picture">
+    <header-item @play="play" @speedAdd="speedAdd" @down="down" @end="end" />
+    <div class="main">
+      <left-code :code="code" :speed="speed" ref="leftCode" />
+      <right-view :structure="structure" />
+    </div>
   </div>
 </template>
 
 <script>
+import leftCode from "./pictureItem/leftCode";
+import rightView from "./pictureItem/rightView";
+import headerItem from "./pictureItem/headerItem";
 export default {
-  name: "codes",
+  name: "App",
+  components: {
+    leftCode,
+    rightView,
+    headerItem,
+  },
   data() {
     return {
+      speed: 1,
+      // css代码
       code: `/*
- * 首先，需要准备皮卡丘的皮
+
+ * 首先，需要准备画哆啦A梦
  */
 #doraemon{
 	position:relative;
@@ -682,47 +697,108 @@ div.hand_circle{
 	position:relative;
 	top:-150px;
 }
-
+/*
+好的这只哆啦A梦送给你
+*/
 `,
+      // html结构
+      structure: `<div id="doraemon">
+      <div id="face">
+        <div id="head_light"></div>
+        <div id="eyes">
+          <div class="eye eye_left"></div>
+          <div class="black_eye black_left"></div>
+          <div class="eye eye_right"></div>
+          <div class="black_eye black_right"></div>
+        </div>
+        <div id="base">
+          <div id="base_white"></div>
+          <div id="nose">
+            <div id="nose_light"></div>
+          </div>
+          <div id="nose_line"></div>
+          <div id="mouth"></div>
+          <div id="mouth_rewrite"></div>
+          <div id="firefox_mouth"></div>
+          <div class="whiskers whi_right_top rotate160"></div>
+          <div class="whiskers whi_right"></div>
+          <div class="whiskers whi_right_bottom rotate20"></div>
+          <div class="whiskers whi_left_top rotate20"></div>
+          <div class="whiskers whi_left"></div>
+          <div class="whiskers whi_left_bottom rotate160"></div>
+        </div>
+      </div>
+      <div id="choker">
+        <div id="belt"></div>
+        <div id="bell">
+          <div id="bell_line"></div>
+          <div id="bell_circle"></div>
+          <div id="bell_under"></div>
+          <div id="bell_light"></div>
+        </div>
+      </div>
+      <div id="body">
+        <div id="doutai"></div>
+        <div class="base_white2 doutai_center"></div>
+        <div id="pocket">
+          <div id="circle"></div>
+          <div id="circle_rewrite"></div>
+        </div>
+      </div>
+      <div id="hand_right">
+        <div id="arm_right"></div>
+        <div class="hand_circle hand_right"></div>
+        <div class="arm_rewrite_right"></div>
+      </div>
+      <div id="hand_left">
+        <div id="arm_left"></div>
+        <div class="hand_circle hand_left"></div>
+        <div class="arm_rewrite_left"></div>
+      </div>
+      <div id="foot">
+        <div id="foot_left"></div>
+        <div id="foot_right"></div>
+        <div id="foot_rewrite"></div>
+      </div>
+      <div id="shadow_doutai_arm"></div>
+      <div id="shadow_doutai_left"></div>
+      <div id="shadow_doutai_right"></div>
+      <div id="shadow_belt"></div>
+    </div>`,
     };
   },
-  mounted() {
-    this.write(this.code);
-  },
   methods: {
-    write(code) {
-      let n = 0;
-      let _this = this;
-      setTimeout(function run() {
-        n += 10;
-        _this.$refs.write.innerHTML = code.substring(0, n);
-        _this.$parent.$el.offsetParent.children[0].innerHTML = code.substring(
-          0,
-          n
-        );
-        _this.$refs.write.scrollTop = _this.$refs.write.scrollHeight;
-				console.log(_this.$refs.write.scrollTop , _this.$refs.write.scrollHeight);
-        if (n < code.length) {
-          setTimeout(run, 0);
-        }
-      }, 0);
+    play() {
+      this.$refs.leftCode.play();
+    },
+    speedAdd(params) {
+      this.speed = params;
+    },
+    down(params) {
+      this.speed = params;
+    },
+    end() {
+      this.$refs.leftCode.end();
     },
   },
 };
 </script>
 
-<style lang='less' scoped >
-.code {
-	box-sizing: border-box;
-  padding: 15px 0 0 40px;
+<style lang="less" class="aaa">
+.header {
+  height: 60px;
+  border-bottom: solid 3px #07beea;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.5);
 }
-.write {
-  font-size: 8px;
+.main {
+  display: flex;
   overflow: hidden;
-  height: 85vh;
-  font-weight: 600;
- word-break: break-all; // 按字符截断换行 /* 支持IE和chrome，FF不支持*/
-	word-wrap:break-word; // 按英文单词整体截断换行  /* 以上三个浏览器均支持 */
-	white-space: pre-wrap;
+}
+.code {
+  width: 50vw;
+}
+.view {
+  flex: 1;
 }
 </style>

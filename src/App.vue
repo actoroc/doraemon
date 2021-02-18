@@ -1,23 +1,15 @@
 <template>
   <div class="app">
-    <header-item></header-item>
-    <div class="main">
-      <left-code></left-code>
-      <right-view></right-view>
-    </div>
+    <css-picture></css-picture>
   </div>
 </template>
 
 <script>
-import leftCode from "components/leftCode";
-import rightView from "components/rightView";
-import headerItem from "components/headerItem";
+import CssPicture from "components/CssPicture";
 export default {
   name: "App",
   components: {
-    leftCode,
-    rightView,
-    headerItem,
+    CssPicture,
   },
   mounted() {},
 };
@@ -25,5 +17,11 @@ export default {
 
 <style lang="less" class="aaa">
 @import url("assets/css/default.css");
-
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 </style>
