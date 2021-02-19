@@ -4,6 +4,7 @@ module.exports = {
       alias: {
         components: '@/components',
         assets: '@/assets',
+        common:'@/common',
       },
       extensions: ['.js', '.css', '.vue', '.json'],
     },
