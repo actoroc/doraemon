@@ -1,9 +1,7 @@
 # doraemon
 
-## Project setup
-```
-npm install
-```
+## 项目预览
+https://actoroc.gitee.io/doraemon-pages
 
 ### Compiles and hot-reloads for development
 ```
